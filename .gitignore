@@ -4,4 +4,7 @@
 /public/bundles/
 /var/
 /vendor/
+.buildpath
+.project
+.settings
 ###< symfony/framework-bundle ###
