@@ -1,0 +1,46 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+	
+	{# here is a comment #}
+	
+	{{ date().format('Y-m-d') }} {# call a method with . #}
+	{# filter allows to change the left element#}
+	
+	{% set nowDate = date() %}
+	
+	english : {{ nowDate|date('Y-d-m') }}</br>
+	french : {{ nowDate|date('Y-m-d') }}</br>
+	
+	{{ 'My null text'|upper|title|length }}
+	{{ 'My null text'|upper|title }}
+	{{ 'My null text'|upper }}
+	
+	
+	{# create a new variable 'range' #}
+    {% set range = [1, 2, 3, 4, 5] %}
+    
+    <ul>
+    {%  for key, element in range %}
+    	{%  if key is even %}
+    		<li>{{ element }}</li>
+    	{% endif %}
+    {% endfor %}
+	</ul>
+	{% if isTrue %}
+	    {{ form(formular) }} {#do#} {#echo#}{# this is a function #}
+	{% endif %}
+	
+	{{ form_start(formular) }} 
+    	{{ form_row(formular.name) }}	{# display a label, error and input - call three functions (before form_row: <div style="" >{{  form_errors(formular.name)}}</div> and form_label 
+    	and form_widget(formular.name) this is the input #}
+    	{{ form_row(formular.description) }}
+    	{{ form_row(formular.version) }}
+    	{{ form_row(formular.submit) }}
+    	
+    {{ form_rest(formular) }}	{# display each element that is not already displayed #}
+	{{ form_end(formular) }}	{# insert the form ending tag #}
+	
+	{# form_start and form_end can be enough #}	
+	
+{%  endblock %}

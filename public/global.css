@@ -28,3 +28,10 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+form {
+	background-color: purple;
+	padding: 25px;
+	display: block;
+}
+
+
