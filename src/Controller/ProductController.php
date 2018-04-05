@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -23,7 +24,8 @@ class ProductController {
         FormFactoryInterface $factory, 
         Request $request, 
         ObjectManager $manager,
-        SessionInterface $session
+        SessionInterface $session,
+        UrlGeneratorInterface $urlGenerator
         ) 
     {   
         $product = new Product();
@@ -62,7 +64,7 @@ class ProductController {
             
             $session->getFlashBag()->add('info', 'your product was created');
             
-            return new RedirectResponse('/');
+            return new RedirectResponse($urlGenerator->generate('homepage')); //instead of '/'= $urlGenerator etc.... this class is in autowiring
         }
         
         

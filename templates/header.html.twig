@@ -20,10 +20,9 @@
       <a class="navbar-brand" href="#">My header</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">toto</a></li>
-      <li><a href="#">titi</a></li>
-      <li><a href="#">tutu</a></li>
+      <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
+      <li><a href="{{ path('add_product') }}">new product</a></li>
+      <li><a href="{{ path('add_user') }}">sign up</a></li>
     </ul>
   </div>
 </nav>
