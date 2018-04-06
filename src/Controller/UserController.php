@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,6 +19,7 @@ use Twig\Environment;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController {
     
@@ -78,12 +80,19 @@ class UserController {
             $message->setFrom('wf3pm@localhost.com')
                 ->setTo($user->getEmail())
                 ->setSubject('Validate your account')
+                ->setContentType('text/html')
                 ->setBody(
                     $twig->render('mail/account_creation.html.twig',
-                                  //['token' => $user->getEmailToken()] 
+                        //['token' => $user->getEmailToken()]
                         ['user' => $user] //now the token is inside the user
                         )
-                    );
+                )->addPart(
+                    $twig->render(
+                        'mail/account_creation.txt.twig',
+                        ['user' => $user]
+                    )
+                    , 'text/plain' // or text/html if we reverse
+                );
             $mailer->send($message);
             
             $session->getFlashBag()->add('info', 'Your account has been created');
@@ -118,7 +127,23 @@ class UserController {
         
         return new Response('hello guys : '.$token); //debug purpose
     }
-    
-    
+    public function usernameAvailable(
+        Request $request, 
+        UserRepository $repository
+        )
+    {
+        $username = $request->request->get('username');
+        
+        $unavailable = $repository->usernameExist($username);
+        
+        return new JsonResponse([
+            'available' => !$unavailable
+        ]
+      );
+
+    }
 }
+
+
+
 

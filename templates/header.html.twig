@@ -17,12 +17,13 @@
 <nav style="background-color: purple" class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">My header</a>
+      <a class="navbar-brand" href="#">{{ 'HEADER.TITLE'|trans }}</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
-      <li><a href="{{ path('add_product') }}">new product</a></li>
-      <li><a href="{{ path('add_user') }}">sign up</a></li>
+      <li class="active"><a href="{{ path('homepage') }}">{{ 'HEADER.HOME'|trans }}</a></li>
+      <li><a href="{{ path('add_product') }}">{{ 'HEADER.PRODUCT'|trans }}</a></li>
+      <li><a href="{{ path('add_user') }}">{{ 'HEADER.SIGN'|trans }}</a></li>
+      <li><a href="{{ path('product_display') }}">{{ 'HEADER.DISPLAY'|trans }}</a></li>
     </ul>
   </div>
 </nav>

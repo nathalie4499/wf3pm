@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\ProductRepository;
+
 
 
 
@@ -30,17 +32,29 @@ class ProductController {
     {   
         $product = new Product();
         $builder = $factory->createBuilder(FormType::class, $product);
-        $builder->add('name', TextType::class)
+        $builder->add('name', TextType::class,
+            ['label' => 'FORM.PRODUCT.NAME',
+             'attr' => [
+                 'placeholder' => 'FORM.PRODUCT.PLACEHOLDER.NAME'
+                ]               
+            ]
+        )
         ->add('description', TextareaType::class,
             ['required' => false,
-                'label' => 'this label has been changed',
+                'label' => 'FORM.PRODUCT.DESCRIPTION',
                 'attr' => [
-                    'placeholder' => 'blabla',
+                    'placeholder' => 'FORM.PRODUCT.PLACEHOLDER.DESCRIPTION',
                     'class' => 'form-control'
                     ]
             ]
         )
-        ->add('version', TextType::class)
+        ->add('version', TextType::class,
+            ['label' => 'FORM.PRODUCT.VERSION',
+                'attr' => [
+                    'placeholder' => 'FORM.PRODUCT.PLACEHOLDER.VERSION'
+                ]
+            ]
+            )
         ->add(
             'submit',
             SubmitType::class,
@@ -55,6 +69,7 @@ class ProductController {
             //then, if the form is valid
                 //then var_dum the data
         $form->handleRequest($request);
+        
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($product);
             $manager->flush();
@@ -77,9 +92,20 @@ class ProductController {
                 ]
             )
         );
+        
     }
-}
-
+    public function displayProduct(Environment $twig, ProductRepository $repository)
+    {
+        return new Response(
+            $twig->render(
+                'Product/displayProduct.html.twig',
+                ['products' => $repository->findAll()
+                    
+                ]
+                )
+            );
+        }
+    }
 
 
 ?>

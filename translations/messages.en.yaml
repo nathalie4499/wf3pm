@@ -1,0 +1,41 @@
+HEADER:
+    HOME: Home
+    PRODUCT: New Product
+    SIGN: Sign up
+    TITLE: My header
+    DISPLAY: Products
+FOOTER:
+    CONTACT: 'Contact information:'
+    EDIT: Edited by
+    TITLE: My footer
+HOMEPAGE:
+    TITLE: Home
+ADD_PRODUCT:
+    INFO: "You're creating a new project. Please, fill the form above:"
+    TITLE: Ajout de projet
+ADD_USER: 
+    INFO: "You're creating a new account. Please, fill the form above:"
+    TITLE: Register    
+FORM:
+    PRODUCT:
+        NAME: 'Name of project*'
+        DESCRIPTION: Description of project
+        VERSION: 'Version of project *'
+        SUBMIT: Submit
+        PLACEHOLDER: 
+            NAME: The name
+            DESCRIPTION: The description
+            VERSION: 0.0.0
+USER:
+    USERNAME: Username
+    FIRSTNAME: Firstname
+    LASTNAME: Lastname
+    EMAIL: Email
+    PASSWORD: 
+        FIRST: Password
+        SECOND: Password    
+        
+LIST_PRODUCT:
+        TITLE: List of products
+        DETAILS: Details of product
+        NO_PRODUCT: No product available        

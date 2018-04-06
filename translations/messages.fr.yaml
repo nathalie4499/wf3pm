@@ -1,0 +1,42 @@
+HEADER:
+    HOME: Accueil
+    PRODUCT: Nouveau Produit
+    SIGN: Inscription
+    TITLE: Mon en-tête
+    DISPLAY: Produits
+FOOTER:
+    CONTACT: 'Information de contact:'
+    EDIT: Edité par
+    TITLE: Mon bas de page
+HOMEPAGE:
+    TITLE: Accueil
+ADD_PRODUCT:
+    INFO: 'Vous voulez créer un nouveau produit. Veuillez remplir ce formulaire:'
+    title: Création de projet
+ADD_USER: 
+    INFO: 'Vous voulez créer un nouveau compte. Veuillez remplir ce formulaire:'
+    TITLE: Création de compte 
+FORM:
+    PRODUCT:
+        NAME: 'Le nom du projet *'
+        DESCRIPTION: La description du projet
+        VERSION: 'La version du projet *'
+        SUBMIT: Valider
+        PLACEHOLDER: 
+            NAME: Le nom
+            DESCRIPTION: La description
+            VERSION: 0.0.0
+USER:
+    USERNAME: Nom utilisateur
+    FIRSTNAME: Prénom
+    LASTNAME: Patronyme
+    EMAIL: Email
+    PASSWORD: 
+        FIRST: Password
+        SECOND: Password
+                                       
+LIST_PRODUCT:
+        TITLE: Liste des produits
+        DETAILS: Détail produit
+        NO_PRODUCT: Aucun produit disponible             
+  

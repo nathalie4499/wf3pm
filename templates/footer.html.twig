@@ -2,17 +2,18 @@
   <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">My footer</a>
+          <a class="navbar-brand" href="#">{{ 'FOOTER.TITLE'|trans }}</a>
         </div>
         <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
-      <li><a href="{{ path('add_product') }}">new product</a></li>
-      <li><a href="{{ path('add_user') }}">sign up</a></li>
+      <li class="active"><a href="{{ path('homepage') }}">{{ 'HEADER.HOME'|trans }}</a></li>
+      <li><a href="{{ path('add_product') }}">{{ 'HEADER.PRODUCT'|trans }}</a></li>
+      <li><a href="{{ path('add_user') }}">{{ 'HEADER.SIGN'|trans }}</a></li>
+      <li><a href="{{ path('product_display') }}">{{ 'HEADER.DISPLAY'|trans }}</a></li>
     </ul>
   </div>
   </nav>
 
-  <p>Edited by: Blablabla</p>
-  <p>Contact information: <a href="mailto:someone@example.com">
+  <p>{{ 'FOOTER.EDIT'|trans }}: Blablabla</p>
+  <p>{{ 'FOOTER.CONTACT'|trans }}<a href="mailto:someone@example.com">
   someone@example.com</a>.</p>
 </footer>
