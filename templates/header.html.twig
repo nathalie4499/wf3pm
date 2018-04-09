@@ -21,9 +21,17 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="{{ path('homepage') }}">{{ 'HEADER.HOME'|trans }}</a></li>
-      <li><a href="{{ path('add_product') }}">{{ 'HEADER.PRODUCT'|trans }}</a></li>
-      <li><a href="{{ path('add_user') }}">{{ 'HEADER.SIGN'|trans }}</a></li>
+      {%  if is_granted('ROLE_ACTIVE') %}
+      	<li><a href="{{ path('add_product') }}">{{ 'HEADER.PRODUCT'|trans }}</a></li>
+      {% endif %}
       <li><a href="{{ path('product_display') }}">{{ 'HEADER.DISPLAY'|trans }}</a></li>
+      {%  if is_granted('IS_AUTHENTICATED_FULLY') %}
+      	<li><a href="{{ path('logout') }}">{{ 'HEADER.LOGOUT'|trans }}</a></li>
+	  {% else %}	
+      	
+      	<li><a href="{{ path('login') }}">{{ 'HEADER.LOGIN'|trans }}</a></li>   
+      	<li><a href="{{ path('add_user') }}">{{ 'HEADER.SIGN'|trans }}</a></li>   	
+      {% endif %}
     </ul>
   </div>
 </nav>

@@ -4,6 +4,8 @@ HEADER:
     SIGN: Inscription
     TITLE: Mon en-tête
     DISPLAY: Produits
+    LOGIN: Authentification
+    LOGOUT: Déconnection
 FOOTER:
     CONTACT: 'Information de contact:'
     EDIT: Edité par

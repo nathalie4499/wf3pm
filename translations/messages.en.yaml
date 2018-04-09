@@ -4,6 +4,8 @@ HEADER:
     SIGN: Sign up
     TITLE: My header
     DISPLAY: Products
+    LOGIN: Log in
+    LOGOUT: Log out
 FOOTER:
     CONTACT: 'Contact information:'
     EDIT: Edited by

@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
@@ -22,7 +25,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * )
  */
 
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -73,10 +76,23 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $emailToken;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $salt;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity=App\Entity\Role")
+     */
+    
+    private $roles;
+
     
     public function __construct()
     {    
-        $this->setEmailToken(Uuid::uuid1());      
+        $this->setEmailToken(Uuid::uuid1());
+        $this->roles = new ArrayCollection();      
     }
     
     public function getId()
@@ -87,6 +103,18 @@ class User
     public function getUsername(): ?string
     {
         return $this->username;
+    }
+    
+    /**
+     * Removes sensitive data from the user.
+     * 
+     * This is important if, at any given point, sensitive information
+     * the plain-text password is stored on this object.
+     */
+    
+    public function eraseCredentials() 
+    {
+        return;
     }
 
     public function setUsername(string $username): self
@@ -168,4 +196,44 @@ class User
 
         return $this;
     }
+
+    public function getSalt(): ?string
+    {
+        return $this->salt;
+    }
+
+    public function setSalt(string $salt): self
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+    
+    public function getRoles(): array
+    {
+        $strings = [];
+        foreach ($this->roles as $role) {
+            $strings[] = $role->getLabel();
+        }
+        return $strings;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+        }
+
+        return $this;
+    }
+
 }
