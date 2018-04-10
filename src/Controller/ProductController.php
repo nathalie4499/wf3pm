@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Dto\FileDto;
+use App\Entity\Comment;
 use App\Entity\Product;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -12,10 +14,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Repository\ProductRepository;
+use App\Form\CommentFileType;
+use App\Form\CommentType;
+use Symfony\Component\Form\FormFactory;
+
 
 
 
@@ -94,18 +101,53 @@ class ProductController {
         );
         
     }
+    
     public function displayProduct(Environment $twig, ProductRepository $repository)
     {
         return new Response(
             $twig->render(
                 'Product/displayProduct.html.twig',
-                ['products' => $repository->findAll()
-                    
+                [
+                    'products' => $repository->findAll()
                 ]
                 )
             );
-        }
+    }
+    public function detailProduct(
+        Environment $twig,
+        ProductRepository $repository,
+        int $product,
+        FormFactoryInterface $formFactory
+        ) {
+            $product = $repository->find($product);
+            if (!$product) {
+                throw new NotFoundHttpException();
+            }
+            
+            $comment = new Comment();
+            $form = $formFactory->create(
+                CommentType::class,
+                $comment,
+                ['stateless' =>true]);
+            
+            /** $fileDto = new FileDto();
+            * 
+            * $form = $formFactory->create(CommentFileType::class, $fileDto);
+            * 
+            **/
+            
+            return new Response(
+                $twig->render(
+                    'Product/detailProduct.html.twig',
+                    [
+                        'product' => $product,
+                        'routeAttr' => ['product' => $product->getId()],
+                        'form' => $form->createView()
+                    ]
+                 )
+             );
     }
 
+}
 
 ?>

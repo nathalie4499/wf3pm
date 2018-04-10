@@ -29,8 +29,8 @@
             	<span class="{{ label }} version">v {{ product.getVersion() }}</span>
             	<p>{{ description|nl2br }}</p>
                         
-                <a href="#">
-                    <button class="btn btn-success btn-block">{{ 'LIST_PRODUCT.DETAILS'|trans }}</button>
+				<a href="{{ path('product_detail', {'product': product.getId()}) }}">
+                      <button class="btn btn-success btn-block">{{ 'LIST_PRODUCT.DETAILS'|trans }}</button>
                 </a>
   
    		</div> 

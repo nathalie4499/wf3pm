@@ -6,6 +6,10 @@ HEADER:
     DISPLAY: Products
     LOGIN: Log in
     LOGOUT: Log out
+    LOCALE:
+        ITEM: Language
+        FR: French
+        EN: English    
 FOOTER:
     CONTACT: 'Contact information:'
     EDIT: Edited by
@@ -36,8 +40,12 @@ USER:
     PASSWORD: 
         FIRST: Password
         SECOND: Password    
+PRODUCT:
+    DOWNLOAD: Download        
         
 LIST_PRODUCT:
         TITLE: List of products
         DETAILS: Details of product
-        NO_PRODUCT: No product available        
+        NO_PRODUCT: No product available
+DETAIL_PRODUCT:
+    TITLE: Project                

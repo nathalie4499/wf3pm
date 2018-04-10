@@ -83,10 +83,10 @@ class User implements UserInterface
     private $salt;
     
     /**
-     * @ORM\ManyToMany(targetEntity=App\Entity\Role")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role")
      */
     
-    private $roles;
+    private $roles = [];
 
     
     public function __construct()
@@ -208,6 +208,10 @@ class User implements UserInterface
 
         return $this;
     }
+    
+    /**
+     * @return Collection|Role[]
+     */
     
     public function getRoles(): array
     {

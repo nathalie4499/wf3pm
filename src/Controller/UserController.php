@@ -42,36 +42,43 @@ class UserController {
         $builder = $factory->createBuilder(FormType::class, $user);
         $builder->add('username', TextType::class,
             [
-                'label' => 'Username'
+                'required' => true,
+                'label' => 'FORM.USER.NAME'
             ]
             )
             ->add('firstname', TextType::class,
-            [
-                 'label' => 'Firstname'
+                [
+                 'required' => true,
+                 'label' => 'FORM.USER.FIRST'
             ]
             )
             ->add('lastname', TextType::class,
                [
-                   'label' => 'Lastname'
+                   'required' => true,
+                   'label' => 'FORM.USER.LAST'
                ]
             )
             ->add('email', EmailType::class,
                 [
-                    'label' => 'Email'
+                    'required' => true,
+                    'label' => 'FORM.USER.EMAIL'
                 ]
              )
 
             ->add('password', RepeatedType::class, array(
                   'type' => PasswordType::class,
+                  'required' => true,
                   'invalid_message' => 'The password fields must match.',
-                  'first_options' => array('label' => 'Password'),
+                  'first_options' => array('label' => 'FORM.USER.PASS'),
                   'second_options' => array('label' => 'Repeat Password')
+                  
               ))
             ->add('submit', SubmitType::class,
                 [
                     'attr' => [
                         'class' => 'btn-lbock btn-success'
-                    ]
+                    ],
+                    'label' => 'FORM.USER.SUBMIT'
                 ]    
             );
             

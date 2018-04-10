@@ -6,6 +6,10 @@ HEADER:
     DISPLAY: Produits
     LOGIN: Authentification
     LOGOUT: Déconnection
+    LOCALE:
+        ITEM: Language
+        FR: Français
+        EN: Anglais    
 FOOTER:
     CONTACT: 'Information de contact:'
     EDIT: Edité par
@@ -28,6 +32,8 @@ FORM:
             NAME: Le nom
             DESCRIPTION: La description
             VERSION: 0.0.0
+PRODUCT:
+    DOWNLOAD: Télécharger            
 USER:
     USERNAME: Nom utilisateur
     FIRSTNAME: Prénom
@@ -42,3 +48,5 @@ LIST_PRODUCT:
         DETAILS: Détail produit
         NO_PRODUCT: Aucun produit disponible             
   
+DETAIL_PRODUCT:
+    TITLE: Projet  

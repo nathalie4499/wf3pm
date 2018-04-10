@@ -14,12 +14,16 @@ homepage:
 add_product:
     path: /{_locale}/add/product
     controller: App\Controller\ProductController::addProduct
+    defaults:
+      _locale: en  
     requirements:
       _locale: 'en|fr' 
 
 add_user:
     path: /{_locale}/add/user
     controller: App\Controller\UserController::register 
+    defaults:
+      _locale: en  
     requirements:
       _locale: 'en|fr' 
         
@@ -38,7 +42,17 @@ product_display:
     defaults:
         _locale: en
     requirements:
-        _locale: 'en|fr'        
+        _locale: 'en|fr' 
+        
+product_detail:
+    path: /{_locale}/product/{product}
+    controller: App\Controller\ProductController::detailProduct  
+    defaults:
+        _locale: en
+    requirements:
+        _locale: 'en|fr'
+        product: '^[0-9]+$'     
+                
 
 username_available:
     path: /username/available

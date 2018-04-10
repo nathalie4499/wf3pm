@@ -22,16 +22,33 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="{{ path('homepage') }}">{{ 'HEADER.HOME'|trans }}</a></li>
       {%  if is_granted('ROLE_ACTIVE') %}
-      	<li><a href="{{ path('add_product') }}">{{ 'HEADER.PRODUCT'|trans }}</a></li>
+      <li><a href="{{ path('add_product') }}">{{ 'HEADER.PRODUCT'|trans }}</a></li>
       {% endif %}
-      <li><a href="{{ path('product_display') }}">{{ 'HEADER.DISPLAY'|trans }}</a></li>
-      {%  if is_granted('IS_AUTHENTICATED_FULLY') %}
+    </ul>      
+	<ul class="nav navbar-nav navbar-right">
+    	<li class="dropdown"><a href="#" class="dropdown-toggle"
+    		data-toggle="dropdown" role="button" aria-haspopup="true"
+    		aria-expanded="false">{{ 'HEADER.LOCALE.ITEM'|trans }} <span class="caret"></span></a>
+    		<ul class="dropdown-menu">
+    			<li>
+    			{% set enRouteVar = {'_locale': 'en'}|merge(routeAttr|default([])) %}
+    				<a href="{{ path(app.request.attributes.get('_route'), enRouteVar) }}">{{ 'HEADER.LOCALE.EN'|trans }}</a>
+    			</li>
+    			<li>
+    			{% set frRouteVar = {'_locale': 'fr'}|merge(routeAttr|default([])) %}
+    				<a href="{{ path(app.request.attributes.get('_route'), frRouteVar) }}">{{ 'HEADER.LOCALE.FR'|trans }}</a>
+    			</li>
+    		</ul>
+    	</li>    
+        <li><a href="{{ path('product_display') }}">{{ 'HEADER.DISPLAY'|trans }}</a></li>
+        {%  if is_granted('IS_AUTHENTICATED_FULLY') %}
       	<li><a href="{{ path('logout') }}">{{ 'HEADER.LOGOUT'|trans }}</a></li>
-	  {% else %}	
+	    {% else %}	
+
       	
       	<li><a href="{{ path('login') }}">{{ 'HEADER.LOGIN'|trans }}</a></li>   
       	<li><a href="{{ path('add_user') }}">{{ 'HEADER.SIGN'|trans }}</a></li>   	
-      {% endif %}
+        {% endif %}
     </ul>
   </div>
 </nav>
