@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
@@ -26,8 +29,9 @@ class Comment
     private $author;
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CommentFile", mappedBy="comment", orphanRemoval=true)
+     * @Assert\Valid()
      */
-    private $files;
+    private $files; //a collection of file Dto
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
@@ -57,6 +61,15 @@ class Comment
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+        return $this;
+    }
+    
+    public function setFiles(array $files)
+    {
+        $this->files = new ArrayCollection();
+        foreach ($files as $file) {
+            $this->addFile($file);
+        }
         return $this;
     }
     /**
@@ -92,5 +105,18 @@ class Comment
     {
         $this->product = $product;
         return $this;
+    }  
+    
+    /**
+     * @Assert\Callback()
+     */
+    
+    public function validateComment(ExecutionContextInterface $context) //validateComment could be truc or any other word
+    {
+        if(empty($this->files) && empty($this->comment)) {
+            $context->buildViolation('This field cannot be empty if no files')
+                ->atPath('comment')
+                ->addviolation();
+        }
     }
 }

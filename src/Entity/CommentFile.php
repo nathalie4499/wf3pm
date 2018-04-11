@@ -38,9 +38,10 @@ class CommentFile
     {
         return $this->mimeType;
     }
-    public function setMimeType()
+    public function setMimeType($mimeType)
     {
-        return $this->mimeType;
+        $this->mimeType= $mimeType;
+        return $this;
     }
     
     public function getId()

@@ -22,6 +22,7 @@ header section p {
 }
 
 body {
+	margin: 0px;
 	padding: 20px;
 	background-color: lightblue;
 	color: black;
@@ -34,4 +35,6 @@ form {
 	display: block;
 }
 
-
+.pict{
+	background-color: red;
+}

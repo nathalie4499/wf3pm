@@ -30,7 +30,7 @@
     	<div>
     		{{ form(form) }}
     	</div>
-    	<div>
+    	<div class="pict">
 			{% for comment in product.getComments() %}
 				{% set bClass = (loop.index0 is even ? 'b-success' : 'b-warning') %}
 				<div class="row comment p-1">

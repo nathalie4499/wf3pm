@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Dto\FileDto;
 use App\Entity\Comment;
+use App\Entity\CommentFile;
 use App\Entity\Product;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -22,6 +23,10 @@ use App\Repository\ProductRepository;
 use App\Form\CommentFileType;
 use App\Form\CommentType;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 
 
@@ -34,7 +39,8 @@ class ProductController {
         Request $request, 
         ObjectManager $manager,
         SessionInterface $session,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        TokenStorageInterface $tokenStorage
         ) 
     {   
         $product = new Product();
@@ -117,7 +123,11 @@ class ProductController {
         Environment $twig,
         ProductRepository $repository,
         int $product,
-        FormFactoryInterface $formFactory
+        ObjectManager $manager,
+        Request $request,
+        FormFactoryInterface $formFactory,
+        UrlGeneratorInterface $urlGenerator,
+        TokenStorageInterface $tokenStorage
         ) {
             $product = $repository->find($product);
             if (!$product) {
@@ -135,6 +145,55 @@ class ProductController {
             * $form = $formFactory->create(CommentFileType::class, $fileDto);
             * 
             **/
+            
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+                $tmpcommentFile = [];
+                
+                foreach($comment->getFiles() as $fileArray) {
+                    foreach ($fileArray as $file) {
+                        $name = sprintf(
+                            '%s.%s',
+                            Uuid::uuid1(),      //the uuid will help to get a unique id  
+                            $file->getClientOriginalExtension()                                                          
+                        );
+                      
+                    $commentFile = new CommentFile();
+                    $commentFile->setComment($comment)
+                    ->setMimeType($file->getMimeType())
+                    ->setName($file->getClientOriginalName())
+                    ->setFileUrl('/upload/'.$name);
+                    
+                   
+                    $tmpcommentFile[] = $commentFile;
+                    $file->move(
+                                __DIR__.'/../../public/upload',
+                                $name
+                    ); 
+                    $manager->persist($commentFile);
+                }
+            }
+            
+            $token = $tokenStorage->getToken();
+            if(!$token){
+                throw new \Exception();    
+            }
+            $user = $token->getUser();
+            if (!$user) {
+                throw new \Exception();
+            }
+            
+            $comment->setFiles($tmpcommentFile)
+                ->setAuthor($user)
+                ->setProduct($product);
+            
+            $manager->persist($comment);
+            $manager->flush();
+            
+            return new RedirectResponse($urlGenerator->generate('product_detail', ['product' =>$product->getId()]
+                )
+            );
+            }
             
             return new Response(
                 $twig->render(

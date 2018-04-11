@@ -1,0 +1,11 @@
+{# templates/bundles/TwigBundle/Exception/error.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Html error</h1>
+
+    <p>
+        Any html error including 500!
+		<a href="{{ path('homepage') }}">return to the homepage</a>.
+    </p>
+{% endblock %}
